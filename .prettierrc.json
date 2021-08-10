@@ -3,6 +3,10 @@
     "jsxSingleQuote": true,
     "arrowParens": "always",
     "max-len": ["error", 140, 2],
+    "useTabs": false,
+    "semi": false,
+    "trailingComma": "es5",
+    "printWidth": 80,
     "tabWidth": 2,
-    "useTabs": false
+    "endOfLine": "auto"
 }
