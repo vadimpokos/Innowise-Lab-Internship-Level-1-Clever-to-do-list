@@ -4,11 +4,12 @@ import { getTodos } from './redux/actions'
 
 export const ToDoList = () => {
   const dispatch = useDispatch()
-  const todos = useSelector(state => state.todos.todos)
+  const todos = useSelector((state) => state.todos.todos)
   const [isLoading, setIsLoading] = useState(true)
+  const uid = useSelector((state) => state.userInfo.userInfo.uid)
 
   useEffect(() => {
-    dispatch(getTodos())
+    dispatch(getTodos(uid))
   }, [])
 
   useEffect(() => {
@@ -16,11 +17,9 @@ export const ToDoList = () => {
     console.log(todos)
   }, [todos])
 
-
-  
-  return (
-    isLoading ? null : todos.map((item, index) => {
-      return <div key={index}>{item.title}</div>
-    })
-  )
+  return isLoading
+    ? null
+    : todos.map((item, index) => {
+        return <div key={index}>{item.title}</div>
+      })
 }

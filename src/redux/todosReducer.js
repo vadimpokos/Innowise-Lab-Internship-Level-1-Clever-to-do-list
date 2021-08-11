@@ -1,13 +1,16 @@
-import { GET_TODOS } from "./reduxTypes"
+import { GET_TODOS, CLEAR_TODOS } from './reduxTypes'
 
 const initialState = {
-    todos: []
+  todos: [],
 }
 
 export const todosReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case GET_TODOS:
-            return {... state, todos: action.payload}
-        default: return state
-    }
+  switch (action.type) {
+    case GET_TODOS:
+      return { ...state, todos: action.payload }
+    case CLEAR_TODOS:
+      return { todos: action.payload }
+    default:
+      return state
+  }
 }

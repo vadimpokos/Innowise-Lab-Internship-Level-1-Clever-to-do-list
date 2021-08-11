@@ -1,2 +1,6 @@
 export const GET_TODOS = 'DATA/GET_TODOS'
+export const CLEAR_TODOS = 'DATA/CLEAR_TODOS'
 export const LOGIN = 'USER/LOGIN'
+export const LOGOUT = 'USER/LOGOUT'
+export const SIGN_UP = 'USER/SIGN_UP'
+export const CONFIRM_ERROR = 'USER/CONFIRM_ERROR'

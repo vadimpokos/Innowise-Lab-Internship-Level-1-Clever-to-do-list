@@ -2,14 +2,15 @@ import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { loginEmail } from './redux/actions'
+import { createUserWithEmail } from './redux/actions'
 import { Link } from 'react-router-dom'
 import './login_logout.css'
 
-export const SignIn = () => {
+export const SignUp = () => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
@@ -17,6 +18,10 @@ export const SignIn = () => {
 
   const handlePassword = (e) => {
     setPassword(e.target.value)
+  }
+
+  const handleConfirm = (e) => {
+    setConfirmPassword(e.target.value)
   }
 
   const onFinish = (values) => {
@@ -29,7 +34,7 @@ export const SignIn = () => {
 
   return (
     <div className='wrapper'>
-      <h1>Sign In page</h1>
+      <h1>Sign Up page</h1>
       <Form
         name='basic'
         labelCol={{
@@ -71,6 +76,19 @@ export const SignIn = () => {
         </Form.Item>
 
         <Form.Item
+          label='Confirm Password'
+          name='confirm_password'
+          rules={[
+            {
+              required: true,
+              message: 'Please confirm your password!',
+            },
+          ]}
+        >
+          <Input.Password onChange={handleConfirm} />
+        </Form.Item>
+
+        <Form.Item
           name='remember'
           valuePropName='checked'
           wrapperCol={{
@@ -91,17 +109,17 @@ export const SignIn = () => {
             type='primary'
             htmlType='submit'
             onClick={() => {
-              dispatch(loginEmail(email, password))
+              dispatch(createUserWithEmail(email, password, confirmPassword))
             }}
           >
-            Submit
+            Sign Up
           </Button>
         </Form.Item>
       </Form>
       <div>
-        Haven`t account yet?
+        Already have an account?
         <Button>
-          <Link to='/signup'>Sign Up</Link>
+          <Link to='/signin'>Sign In</Link>
         </Button>
       </div>
     </div>
