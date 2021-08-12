@@ -1,7 +1,9 @@
 import { db } from '../firebase/firebase'
 import {
+  ADD_TODO,
   CLEAR_TODOS,
   CONFIRM_ERROR,
+  DELETE_TODO,
   GET_TODOS,
   LOGIN,
   LOGOUT,
@@ -19,12 +21,61 @@ export function getTodos(uid) {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             console.log(`${doc.id} => ${doc.data()}`)
-            todos = [...todos, doc.data()]
+            todos = [...todos, { ...doc.data(), firestoreId: doc.id }]
           })
         })
         .then(() => {
           console.log(todos)
           dispatch({ type: GET_TODOS, payload: todos })
+        })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function addToDo(title, description, uid) {
+  return async (dispatch) => {
+    const response = db.collection('todos')
+    const todo = {
+      title: title,
+      id: new Date().getTime(),
+      description: description,
+      uid: uid,
+    }
+    try {
+      await response
+        .add(todo)
+        .then((docRef) => {
+          console.log('Document written with ID: ', docRef.id)
+        })
+        .then(() => {
+          dispatch({ type: ADD_TODO, payload: todo })
+        })
+        .catch((error) => {
+          console.error('Error adding document: ', error)
+        })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function deleteToDo(docId) {
+  return async (dispatch) => {
+    const response = db.collection('todos')
+    try {
+      await response
+        .doc(docId)
+        .delete()
+        .then(() => {
+          console.log('Document successfully deleted!')
+        })
+        .then(() => {
+          dispatch({ type: DELETE_TODO })
+        })
+        .catch((error) => {
+          console.error('Error removing document: ', error)
         })
     } catch (e) {
       console.log(e)
