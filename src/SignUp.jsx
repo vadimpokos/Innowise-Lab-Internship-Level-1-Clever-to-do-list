@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { createUserWithEmail } from './redux/actions'
 import { Link } from 'react-router-dom'
 import './login_logout.css'
+import { AUTH_FORM_CONFIG } from './authFormConfig'
 
 export const SignUp = () => {
   const dispatch = useDispatch()
@@ -12,102 +13,53 @@ export const SignUp = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value)
-  }
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value)
-  }
-
-  const handleConfirm = (e) => {
-    setConfirmPassword(e.target.value)
-  }
-
-  const onFinish = (values) => {
-    console.log('Success:', values)
-  }
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
-
   return (
     <div className='wrapper'>
       <h1>Sign Up page</h1>
       <Form
-        name='basic'
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        name={AUTH_FORM_CONFIG.name.basic}
+        labelCol={AUTH_FORM_CONFIG.labelCol.Form}
+        wrapperCol={AUTH_FORM_CONFIG.wrapperCol.Form}
+        initialValues={AUTH_FORM_CONFIG.initialValues}
       >
         <Form.Item
-          label='Username'
-          name='username'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your username!',
-            },
-          ]}
+          label={AUTH_FORM_CONFIG.label.Username}
+          name={AUTH_FORM_CONFIG.name.username}
+          rules={AUTH_FORM_CONFIG.rules.Username}
         >
-          <Input onChange={handleEmail} />
+          <Input onChange={(e) => setEmail(e.target.value)} />
         </Form.Item>
 
         <Form.Item
-          label='Password'
-          name='password'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
+          label={AUTH_FORM_CONFIG.label.Password}
+          name={AUTH_FORM_CONFIG.name.password}
+          rules={AUTH_FORM_CONFIG.rules.Password}
         >
-          <Input.Password onChange={handlePassword} />
+          <Input.Password onChange={(e) => setPassword(e.target.value)} />
         </Form.Item>
 
         <Form.Item
-          label='Confirm Password'
-          name='confirm_password'
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-          ]}
+          label={AUTH_FORM_CONFIG.label.Confirm}
+          name={AUTH_FORM_CONFIG.name.confirm_password}
+          rules={AUTH_FORM_CONFIG.rules.Confirm}
         >
-          <Input.Password onChange={handleConfirm} />
+          <Input.Password
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
         </Form.Item>
 
         <Form.Item
-          name='remember'
-          valuePropName='checked'
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
+          name={AUTH_FORM_CONFIG.name.remember}
+          valuePropName={AUTH_FORM_CONFIG.valuePropName.checked}
+          wrapperCol={AUTH_FORM_CONFIG.wrapperCol.Form_Item}
         >
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <Form.Item wrapperCol={AUTH_FORM_CONFIG.wrapperCol.Form_Item}>
           <Button
-            type='primary'
-            htmlType='submit'
+            type={AUTH_FORM_CONFIG.type.primary}
+            htmlType={AUTH_FORM_CONFIG.htmlType.submit}
             onClick={() => {
               dispatch(createUserWithEmail(email, password, confirmPassword))
             }}
@@ -119,7 +71,7 @@ export const SignUp = () => {
       <div>
         Already have an account?
         <Button>
-          <Link to='/signin'>Sign In</Link>
+          <Link to='/auth'>Sign In</Link>
         </Button>
       </div>
     </div>

@@ -17,9 +17,11 @@ export const ToDoList = () => {
     console.log(todos)
   }, [todos])
 
-  return isLoading
-    ? null
-    : todos.map((item, index) => {
-        return <div key={index}>{item.title}</div>
-      })
+  if (isLoading) {
+    return null
+  } else {
+    return todos.map((item) => {
+      return <div key={item.id}>{item.title}</div>
+    })
+  }
 }
