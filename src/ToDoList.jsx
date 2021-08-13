@@ -1,7 +1,8 @@
-import { Card, Input, Button } from 'antd'
+import { Input, Button } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToDo, deleteToDo, getTodos, updateToDo } from './redux/actions'
+import { addToDo, getTodos } from './redux/actions'
+import { Todo } from './ToDo'
 
 export const ToDoList = () => {
   const dispatch = useDispatch()
@@ -37,10 +38,14 @@ export const ToDoList = () => {
         <Input onChange={(e) => setNewDesc(e.target.value)} value={newDesc} />
         <Button
           onClick={() => {
-            dispatch(addToDo(newTitle, newDesc, uid))
-            dispatch(getTodos(uid))
-            setNewTitle('')
-            setNewDesc('')
+            if (!newTitle || !newDesc) {
+              console.log('missing required field')
+            } else {
+              dispatch(addToDo(newTitle, newDesc, uid))
+              dispatch(getTodos(uid))
+              setNewTitle('')
+              setNewDesc('')
+            }
           }}
         >
           Add new
@@ -48,46 +53,4 @@ export const ToDoList = () => {
       </>
     )
   }
-}
-
-const Todo = (todo) => {
-  const [updateTitle, setUpdateTitle] = useState('')
-  const [updateDesc, setUpdateDesc] = useState('')
-  const dispatch = useDispatch()
-  const uid = useSelector((state) => state.userInfo.userInfo.uid)
-
-  useEffect(() => console.log(uid), [])
-
-  return (
-    <Card>
-      <Card.Meta title={todo.todo.title} description={todo.todo.description} />
-      <Input
-        onChange={(e) => setUpdateTitle(e.target.value)}
-        value={updateTitle}
-      />
-      <Input
-        onChange={(e) => setUpdateDesc(e.target.value)}
-        value={updateDesc}
-      />
-      <Button
-        onClick={() => {
-          dispatch(updateToDo(todo.todo, updateTitle, updateDesc))
-          // dispatch(getTodos(uid))
-          setUpdateTitle('')
-          setUpdateDesc('')
-        }}
-      >
-        Update
-      </Button>
-      <Button
-        type='primary'
-        danger
-        onClick={() => {
-          dispatch(deleteToDo(todo.todo.firestoreId, todo.todo.id))
-        }}
-      >
-        Delete
-      </Button>
-    </Card>
-  )
 }

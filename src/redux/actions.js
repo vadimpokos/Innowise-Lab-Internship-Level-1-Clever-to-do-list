@@ -4,6 +4,7 @@ import {
   CLEAR_TODOS,
   CONFIRM_ERROR,
   DELETE_TODO,
+  FOCUS,
   GET_TODOS,
   LOGIN,
   LOGOUT,
@@ -181,5 +182,12 @@ export function createUserWithEmail(email, password, confirm) {
     return {
       type: CONFIRM_ERROR,
     }
+  }
+}
+
+export function changeFocus(id) {
+  return {
+    type: FOCUS,
+    payload: id,
   }
 }
