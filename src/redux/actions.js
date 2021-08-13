@@ -8,6 +8,7 @@ import {
   LOGIN,
   LOGOUT,
   SIGN_UP,
+  UPDATE_TODO,
 } from './reduxTypes'
 import firebase from 'firebase'
 
@@ -61,7 +62,39 @@ export function addToDo(title, description, uid) {
   }
 }
 
-export function deleteToDo(docId) {
+export function updateToDo(todo, title, description) {
+  return async (dispatch) => {
+    const response = db.collection('todos')
+    const newToDo = {
+      title: title,
+      description: description,
+      id: todo.id,
+      uid: todo.uid,
+      firestoreId: todo.firestoreId,
+    }
+    try {
+      await response
+        .doc(todo.firestoreId)
+        .update({
+          title: title,
+          description: description,
+        })
+        .then(() => {
+          console.log('Document successfully updated!')
+        })
+        .then(() => {
+          dispatch({ type: UPDATE_TODO, payload: newToDo })
+        })
+        .catch((error) => {
+          console.error('Error updating document: ', error)
+        })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function deleteToDo(docId, id) {
   return async (dispatch) => {
     const response = db.collection('todos')
     try {
@@ -72,7 +105,7 @@ export function deleteToDo(docId) {
           console.log('Document successfully deleted!')
         })
         .then(() => {
-          dispatch({ type: DELETE_TODO })
+          dispatch({ type: DELETE_TODO, payload: id })
         })
         .catch((error) => {
           console.error('Error removing document: ', error)
