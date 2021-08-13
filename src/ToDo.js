@@ -29,10 +29,21 @@ export const Todo = (todo) => {
           />
           <Button
             onClick={() => {
-              dispatch(updateToDo(todo.todo, updateTitle, updateDesc))
-              dispatch(changeFocus(''))
-              setUpdateTitle('')
-              setUpdateDesc('')
+              if (!updateTitle && !updateDesc) {
+                console.log('Both fields is empty')
+                dispatch(changeFocus(''))
+              } else {
+                dispatch(
+                  updateToDo(
+                    todo.todo,
+                    updateTitle ? updateTitle : todo.todo.title,
+                    updateDesc ? updateDesc : todo.todo.description
+                  )
+                )
+                dispatch(changeFocus(''))
+                setUpdateTitle('')
+                setUpdateDesc('')
+              }
             }}
           >
             Update

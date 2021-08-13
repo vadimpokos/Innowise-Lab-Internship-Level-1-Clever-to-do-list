@@ -81,7 +81,7 @@ export function updateToDo(todo, title, description) {
           description: description,
         })
         .then(() => {
-          console.log('Document successfully updated!')
+          console.log('Document successfully updated!', newToDo)
         })
         .then(() => {
           dispatch({ type: UPDATE_TODO, payload: newToDo })
