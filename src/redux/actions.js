@@ -44,6 +44,7 @@ export function addToDo(title, description, uid) {
       id: new Date().getTime(),
       description: description,
       uid: uid,
+      status: 'inprogress',
     }
     try {
       await response
@@ -63,7 +64,7 @@ export function addToDo(title, description, uid) {
   }
 }
 
-export function updateToDo(todo, title, description) {
+export function updateToDo(todo, title, description, status) {
   return async (dispatch) => {
     const response = db.collection('todos')
     const newToDo = {
@@ -72,6 +73,7 @@ export function updateToDo(todo, title, description) {
       id: todo.id,
       uid: todo.uid,
       firestoreId: todo.firestoreId,
+      status: status,
     }
     try {
       await response
@@ -79,6 +81,7 @@ export function updateToDo(todo, title, description) {
         .update({
           title: title,
           description: description,
+          status: status,
         })
         .then(() => {
           console.log('Document successfully updated!', newToDo)

@@ -1,7 +1,9 @@
+import './ToDo.css'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Card, Input, Button } from 'antd'
+import { Card, Input, Button, Badge } from 'antd'
 import { updateToDo, deleteToDo, changeFocus } from './redux/actions'
+import { CheckOutlined } from '@ant-design/icons'
 
 export const Todo = (todo) => {
   const [updateTitle, setUpdateTitle] = useState('')
@@ -12,8 +14,45 @@ export const Todo = (todo) => {
 
   useEffect(() => console.log(focusedId), [])
 
+  const status = (status) => {
+    if (status === 'inprogress') {
+      return (
+        <div className='todo_status'>
+          <Button
+            className='button_done'
+            type='default'
+            shape='round'
+            icon={<CheckOutlined />}
+            onClick={() =>
+              dispatch(
+                updateToDo(
+                  todo.todo,
+                  todo.todo.title,
+                  todo.todo.description,
+                  'done'
+                )
+              )
+            }
+          >
+            Complete
+          </Button>
+          <Badge status='default' text='Active' />
+        </div>
+      )
+    } else if (status === 'done') {
+      return (
+        <div className='todo_status'>
+          <Badge status='success' text='Completed' />
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
+
   return (
     <Card>
+      {status(todo.todo.status)}
       <Card.Meta title={todo.todo.title} description={todo.todo.description} />
 
       {focusedId === todo.todo.id ? (
@@ -37,7 +76,8 @@ export const Todo = (todo) => {
                   updateToDo(
                     todo.todo,
                     updateTitle ? updateTitle : todo.todo.title,
-                    updateDesc ? updateDesc : todo.todo.description
+                    updateDesc ? updateDesc : todo.todo.description,
+                    todo.todo.status
                   )
                 )
                 dispatch(changeFocus(''))
