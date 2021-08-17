@@ -24,33 +24,29 @@ export const ToDoList = () => {
 
   if (isLoading) {
     return null
-  } else {
-    return (
-      <>
-        {todos.map((item) => {
-          return (
-            <div key={item.id}>
-              <Todo todo={item} />
-            </div>
-          )
-        })}
-        <Input onChange={(e) => setNewTitle(e.target.value)} value={newTitle} />
-        <Input onChange={(e) => setNewDesc(e.target.value)} value={newDesc} />
-        <Button
-          onClick={() => {
-            if (!newTitle || !newDesc) {
-              console.log('missing required field')
-            } else {
-              dispatch(addToDo(newTitle, newDesc, uid))
-              dispatch(getTodos(uid))
-              setNewTitle('')
-              setNewDesc('')
-            }
-          }}
-        >
-          Add new
-        </Button>
-      </>
-    )
   }
+  return (
+    <>
+      {todos.map((item) => (
+        <Todo key={item.id} todo={item} />
+      ))}
+
+      <Input onChange={(e) => setNewTitle(e.target.value)} value={newTitle} />
+      <Input onChange={(e) => setNewDesc(e.target.value)} value={newDesc} />
+      <Button
+        onClick={() => {
+          if (!newTitle || !newDesc) {
+            console.log('missing required field')
+          } else {
+            dispatch(addToDo(newTitle, newDesc, uid))
+            dispatch(getTodos(uid))
+            setNewTitle('')
+            setNewDesc('')
+          }
+        }}
+      >
+        Add new
+      </Button>
+    </>
+  )
 }
