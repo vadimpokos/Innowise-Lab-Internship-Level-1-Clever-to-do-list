@@ -1,5 +1,5 @@
 import './ToDo.css'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, Input, Button, Badge } from 'antd'
 import { updateToDo, deleteToDo, changeFocus } from './redux/actions'
@@ -8,11 +8,8 @@ import { CheckOutlined } from '@ant-design/icons'
 export const Todo = (todo) => {
   const [updateTitle, setUpdateTitle] = useState('')
   const [updateDesc, setUpdateDesc] = useState('')
-  //   const [isMore, setIsMore] = useState(false)
   const dispatch = useDispatch()
   const focusedId = useSelector((state) => state.app)
-
-  useEffect(() => console.log(focusedId), [])
 
   const status = (status) => {
     if (status === 'inprogress') {

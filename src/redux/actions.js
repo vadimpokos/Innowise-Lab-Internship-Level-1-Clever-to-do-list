@@ -1,6 +1,7 @@
 import { db } from '../firebase/firebase'
 import {
   ADD_TODO,
+  CHANGE_DATE,
   CLEAR_TODOS,
   CONFIRM_ERROR,
   DELETE_TODO,
@@ -22,12 +23,10 @@ export function getTodos(uid) {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data()}`)
             todos = [...todos, { ...doc.data(), firestoreId: doc.id }]
           })
         })
         .then(() => {
-          console.log(todos)
           dispatch({ type: GET_TODOS, payload: todos })
         })
     } catch (e) {
@@ -36,7 +35,7 @@ export function getTodos(uid) {
   }
 }
 
-export function addToDo(title, description, uid) {
+export function addToDo(title, description, uid, day) {
   return async (dispatch) => {
     const response = db.collection('todos')
     const todo = {
@@ -45,6 +44,7 @@ export function addToDo(title, description, uid) {
       description: description,
       uid: uid,
       status: 'inprogress',
+      date: day,
     }
     try {
       await response
@@ -74,6 +74,7 @@ export function updateToDo(todo, title, description, status) {
       uid: todo.uid,
       firestoreId: todo.firestoreId,
       status: status,
+      date: todo.date,
     }
     try {
       await response
@@ -192,5 +193,12 @@ export function changeFocus(id) {
   return {
     type: FOCUS,
     payload: id,
+  }
+}
+
+export function changeDate(newDate) {
+  return {
+    type: CHANGE_DATE,
+    payload: newDate,
   }
 }

@@ -10,6 +10,7 @@ export const ToDoList = () => {
   const todos = useSelector((state) => state.todos.todos)
   const [isLoading, setIsLoading] = useState(true)
   const uid = useSelector((state) => state.userInfo.userInfo.uid)
+  const date = useSelector((state) => state.date)
 
   const [newTitle, setNewTitle] = useState('')
   const [newDesc, setNewDesc] = useState('')
@@ -20,7 +21,6 @@ export const ToDoList = () => {
 
   useEffect(() => {
     setIsLoading(false)
-    console.log(todos)
   }, [todos])
 
   if (isLoading) {
@@ -29,12 +29,14 @@ export const ToDoList = () => {
     return (
       <>
         <Calendar />
+        <h1>Tasks for {date.selectedDate.toDateString()}</h1>
         {todos.map((item) => {
-          return (
-            <div key={item.id}>
-              <Todo todo={item} />
-            </div>
-          )
+          return new Date(item.date.seconds * 1000).getDate() ===
+            date.selectedDate.getDate() &&
+            new Date(item.date.seconds * 1000).getMonth() ===
+              date.selectedDate.getMonth() ? (
+            <Todo key={item.id} todo={item} />
+          ) : null
         })}
         <Input onChange={(e) => setNewTitle(e.target.value)} value={newTitle} />
         <Input onChange={(e) => setNewDesc(e.target.value)} value={newDesc} />
@@ -43,7 +45,7 @@ export const ToDoList = () => {
             if (!newTitle || !newDesc) {
               console.log('missing required field')
             } else {
-              dispatch(addToDo(newTitle, newDesc, uid))
+              dispatch(addToDo(newTitle, newDesc, uid, date.selectedDate))
               dispatch(getTodos(uid))
               setNewTitle('')
               setNewDesc('')

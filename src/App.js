@@ -1,6 +1,6 @@
 import './App.css'
 import 'antd/dist/antd.css'
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,10 +17,6 @@ import { SignUp } from './SignUp'
 
 function App() {
   const user = useSelector((state) => state.userInfo.userInfo.uid)
-
-  useEffect(() => {
-    console.log('user', user)
-  }, [user])
 
   return (
     <Router history={history}>
