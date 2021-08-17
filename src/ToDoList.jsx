@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToDo, getTodos } from './redux/actions'
 import { Todo } from './ToDo'
+import { Calendar } from './Calendar'
 
 export const ToDoList = () => {
   const dispatch = useDispatch()
@@ -27,6 +28,7 @@ export const ToDoList = () => {
   } else {
     return (
       <>
+        <Calendar />
         {todos.map((item) => {
           return (
             <div key={item.id}>
