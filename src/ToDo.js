@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Card, Input, Button, Badge } from 'antd'
 import { updateToDo, deleteToDo, changeFocus } from './redux/actions'
 import { CheckOutlined } from '@ant-design/icons'
+import { openNotification } from './notification'
 
 export const Todo = (todo) => {
   const [updateTitle, setUpdateTitle] = useState('')
@@ -66,8 +67,7 @@ export const Todo = (todo) => {
           <Button
             onClick={() => {
               if (!updateTitle && !updateDesc) {
-                console.log('Both fields is empty')
-                dispatch(changeFocus(''))
+                openNotification('warning', 'Both fields is empty')
               } else {
                 dispatch(
                   updateToDo(

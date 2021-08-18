@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToDo, getTodos } from './redux/actions'
 import { Todo } from './ToDo'
 import { Calendar } from './Calendar'
+import { openNotification } from './notification'
 
 export const ToDoList = () => {
   const dispatch = useDispatch()
@@ -43,7 +44,7 @@ export const ToDoList = () => {
         <Button
           onClick={() => {
             if (!newTitle || !newDesc) {
-              console.log('missing required field')
+              openNotification('warning', 'Missing required field')
             } else {
               dispatch(addToDo(newTitle, newDesc, uid, date.selectedDate))
               dispatch(getTodos(uid))

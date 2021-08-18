@@ -13,6 +13,7 @@ import {
   UPDATE_TODO,
 } from './reduxTypes'
 import firebase from 'firebase'
+import { openNotification } from '../notification'
 
 export function getTodos(uid) {
   return async (dispatch) => {
@@ -29,8 +30,11 @@ export function getTodos(uid) {
         .then(() => {
           dispatch({ type: GET_TODOS, payload: todos })
         })
+        .catch((e) => {
+          throw e
+        })
     } catch (e) {
-      console.log(e)
+      openNotification('error', 'Error loading data', e.message)
     }
   }
 }
@@ -49,17 +53,14 @@ export function addToDo(title, description, uid, day) {
     try {
       await response
         .add(todo)
-        .then((docRef) => {
-          console.log('Document written with ID: ', docRef.id)
-        })
         .then(() => {
           dispatch({ type: ADD_TODO, payload: todo })
         })
         .catch((error) => {
-          console.error('Error adding document: ', error)
+          throw error
         })
     } catch (e) {
-      console.log(e)
+      openNotification('error', 'Error adding document', e.message)
     }
   }
 }
@@ -91,10 +92,10 @@ export function updateToDo(todo, title, description, status) {
           dispatch({ type: UPDATE_TODO, payload: newToDo })
         })
         .catch((error) => {
-          console.error('Error updating document: ', error)
+          throw error
         })
     } catch (e) {
-      console.log(e)
+      openNotification('error', 'Error updating document', e.message)
     }
   }
 }
@@ -107,16 +108,17 @@ export function deleteToDo(docId, id) {
         .doc(docId)
         .delete()
         .then(() => {
-          console.log('Document successfully deleted!')
+          openNotification('success', 'Task deleted!')
         })
         .then(() => {
           dispatch({ type: DELETE_TODO, payload: id })
         })
         .catch((error) => {
-          console.error('Error removing document: ', error)
+          throw error
         })
     } catch (e) {
       console.log(e)
+      openNotification('error', 'Error removing task!', e.message)
     }
   }
 }
@@ -132,24 +134,26 @@ export function loginEmail(email, password) {
         dispatch({ type: LOGIN, payload: user })
       })
       .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log('error code--->', errorCode, 'error msg--->', errorMessage)
+        openNotification('error', 'Login error', error.message)
       })
   }
 }
 
 export function logout() {
   return async (dispatch) => {
-    await firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        dispatch({ type: LOGOUT, payload: {} })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    try {
+      await firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          dispatch({ type: LOGOUT, payload: {} })
+        })
+        .catch((error) => {
+          throw error
+        })
+    } catch (e) {
+      openNotification('error', 'LogOut error', e.message)
+    }
   }
 }
 
@@ -171,18 +175,15 @@ export function createUserWithEmail(email, password, confirm) {
           dispatch({ type: SIGN_UP, payload: user })
         })
         .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          console.log(
-            'error code--->',
-            errorCode,
-            'error msg--->',
-            errorMessage
-          )
+          openNotification('error', 'Sign Up error!', error.message)
         })
     }
   } else {
-    console.log(new Error('confirm error'))
+    openNotification(
+      'error',
+      'Passwords didn`t match!',
+      'Please, check that passwords in password and confirm fields are similar'
+    )
     return {
       type: CONFIRM_ERROR,
     }
