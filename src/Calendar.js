@@ -1,29 +1,10 @@
-import { Card, Tag } from 'antd'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import './Calendar.css'
-import { changeDate } from './redux/actions'
-
-const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const MONTH_NAMES = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-]
+import { CalendarItem } from './CalendarItem'
 
 export const Calendar = () => {
   const [today] = useState(new Date())
   const [lastDayToDisplay] = useState(new Date())
-  const dispatch = useDispatch()
 
   lastDayToDisplay.setMonth(today.getMonth() + 1)
 
@@ -43,27 +24,9 @@ export const Calendar = () => {
 
   return (
     <div className='calendar_wrapper'>
-      {daysValues.map((item, index) => {
-        return (
-          <Card
-            key={index}
-            className='calendar-item'
-            onClick={() => dispatch(changeDate(item))}
-          >
-            <Card.Meta
-              title={item.getDate()}
-              description={MONTH_NAMES.find(
-                (_, index) => index === item.getMonth()
-              )}
-            />
-            <div>{WEEK_DAYS.find((_, index) => index === item.getDay())}</div>
-            {item.getDate() === today.getDate() &&
-            item.getMonth() === today.getMonth() ? (
-              <Tag color='purple'>Today</Tag>
-            ) : null}
-          </Card>
-        )
-      })}
+      {daysValues.map((item, index) => (
+        <CalendarItem key={index} day={item} today={today} />
+      ))}
     </div>
   )
 }
