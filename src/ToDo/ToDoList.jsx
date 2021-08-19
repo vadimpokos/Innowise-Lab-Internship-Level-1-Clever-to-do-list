@@ -1,10 +1,9 @@
-import { Input, Button } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToDo, getTodos } from './redux/actions'
+import { getTodos } from '../redux/actions'
 import { Todo } from './ToDo'
-import { Calendar } from './Calendar'
-import { openNotification } from './notification'
+import { Calendar } from '../Calendar/Calendar'
+import { NewToDoForm } from './NewToDoForm'
 
 export const ToDoList = () => {
   const dispatch = useDispatch()
@@ -12,9 +11,6 @@ export const ToDoList = () => {
   const [isLoading, setIsLoading] = useState(true)
   const uid = useSelector((state) => state.userInfo.userInfo.uid)
   const date = useSelector((state) => state.date)
-
-  const [newTitle, setNewTitle] = useState('')
-  const [newDesc, setNewDesc] = useState('')
 
   useEffect(() => {
     dispatch(getTodos(uid))
@@ -39,22 +35,7 @@ export const ToDoList = () => {
             <Todo key={item.id} todo={item} />
           ) : null
         })}
-        <Input onChange={(e) => setNewTitle(e.target.value)} value={newTitle} />
-        <Input onChange={(e) => setNewDesc(e.target.value)} value={newDesc} />
-        <Button
-          onClick={() => {
-            if (!newTitle || !newDesc) {
-              openNotification('warning', 'Missing required field')
-            } else {
-              dispatch(addToDo(newTitle, newDesc, uid, date.selectedDate))
-              dispatch(getTodos(uid))
-              setNewTitle('')
-              setNewDesc('')
-            }
-          }}
-        >
-          Add new
-        </Button>
+        <NewToDoForm />
       </>
     )
   }

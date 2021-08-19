@@ -1,0 +1,12 @@
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5em;
+}

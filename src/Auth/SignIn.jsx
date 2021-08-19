@@ -2,20 +2,20 @@ import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { createUserWithEmail } from './redux/actions'
-import { Link } from 'react-router-dom'
+import { loginEmail } from '../redux/actions'
+import { Link, useRouteMatch } from 'react-router-dom'
 import './login_logout.css'
 import { AUTH_FORM_CONFIG } from './authFormConfig'
 
-export const SignUp = () => {
+export const SignIn = () => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const match = useRouteMatch()
 
   return (
     <div className='wrapper'>
-      <h1>Sign Up page</h1>
+      <h1>Sign In page</h1>
       <Form
         name={AUTH_FORM_CONFIG.name.basic}
         labelCol={AUTH_FORM_CONFIG.labelCol.Form}
@@ -39,16 +39,6 @@ export const SignUp = () => {
         </Form.Item>
 
         <Form.Item
-          label={AUTH_FORM_CONFIG.label.Confirm}
-          name={AUTH_FORM_CONFIG.name.confirm_password}
-          rules={AUTH_FORM_CONFIG.rules.Confirm}
-        >
-          <Input.Password
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </Form.Item>
-
-        <Form.Item
           name={AUTH_FORM_CONFIG.name.remember}
           valuePropName={AUTH_FORM_CONFIG.valuePropName.checked}
           wrapperCol={AUTH_FORM_CONFIG.wrapperCol.Form_Item}
@@ -61,17 +51,17 @@ export const SignUp = () => {
             type={AUTH_FORM_CONFIG.type.primary}
             htmlType={AUTH_FORM_CONFIG.htmlType.submit}
             onClick={() => {
-              dispatch(createUserWithEmail(email, password, confirmPassword))
+              dispatch(loginEmail(email, password))
             }}
           >
-            Sign Up
+            Submit
           </Button>
         </Form.Item>
       </Form>
       <div>
-        Already have an account?
+        Haven`t account yet?
         <Button>
-          <Link to='/auth'>Sign In</Link>
+          <Link to={`${match.path}/signup`}>Sign Up</Link>
         </Button>
       </div>
     </div>

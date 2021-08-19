@@ -1,7 +1,8 @@
 import React from 'react'
 import { Card, Tag } from 'antd'
 import { useDispatch } from 'react-redux'
-import { changeDate } from './redux/actions'
+import { changeDate } from '../redux/actions'
+import { TasksBadge } from './TasksBadge'
 
 const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const MONTH_NAMES = [
@@ -22,8 +23,6 @@ const MONTH_NAMES = [
 export const CalendarItem = (day) => {
   const dispatch = useDispatch()
 
-  //   useEffect(() => console.log('day->', day, 'today->', today))
-
   return (
     <Card
       className='calendar-item'
@@ -36,6 +35,7 @@ export const CalendarItem = (day) => {
         )}
       />
       <div>{WEEK_DAYS.find((_, index) => index === day.day.getDay())}</div>
+      <TasksBadge day={day.day} />
       {day.day.getDate() === day.today.getDate() &&
       day.day.getMonth() === day.today.getMonth() ? (
         <Tag color='purple'>Today</Tag>

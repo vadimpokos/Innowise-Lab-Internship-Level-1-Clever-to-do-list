@@ -1,8 +1,8 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 import { Route } from 'react-router'
-import { SignIn } from '../SignIn'
-import { SignUp } from '../SignUp'
+import { SignIn } from '../Auth/SignIn'
+import { SignUp } from '../Auth/SignUp'
 
 export const AuthRouter = () => {
   const { path } = useRouteMatch()

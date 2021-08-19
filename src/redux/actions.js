@@ -86,9 +86,6 @@ export function updateToDo(todo, title, description, status) {
           status: status,
         })
         .then(() => {
-          console.log('Document successfully updated!', newToDo)
-        })
-        .then(() => {
           dispatch({ type: UPDATE_TODO, payload: newToDo })
         })
         .catch((error) => {
@@ -130,7 +127,6 @@ export function loginEmail(email, password) {
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log(user)
         dispatch({ type: LOGIN, payload: user })
       })
       .catch((error) => {

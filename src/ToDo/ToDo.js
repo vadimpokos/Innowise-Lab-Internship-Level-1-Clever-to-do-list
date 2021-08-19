@@ -2,9 +2,9 @@ import './ToDo.css'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, Input, Button, Badge } from 'antd'
-import { updateToDo, deleteToDo, changeFocus } from './redux/actions'
+import { updateToDo, deleteToDo, changeFocus } from '../redux/actions'
 import { CheckOutlined } from '@ant-design/icons'
-import { openNotification } from './notification'
+import { openNotification } from '../notification'
 
 export const Todo = (todo) => {
   const [updateTitle, setUpdateTitle] = useState('')
