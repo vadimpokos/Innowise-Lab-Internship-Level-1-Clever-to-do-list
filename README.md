@@ -1,71 +1,105 @@
-# Getting Started with Create React App
+# Innowise Lab Internship Level 1 Clever to-do list
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [demo](https://vadimpokos.github.io/Innowise-Lab-Internship-Level-1-Clever-to-do-list/)
 
-## Available Scripts
+## How to run the app
 
-In the project directory, you can run:
+1. Clone this repo
+
+```
+    $git clone https://github.com/vadimpokos/Innowise-Lab-Internship-Level-1-Clever-to-do-list.git
+```
+
+2. Open the directory in code editor
+3. Run `$ npm install`
+4. Set up .env file with Firebase config
+5. Run app with `$ npm start`
+
+## npm scripts
 
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `env-cmd -f .env.firebase gh-pages -d build`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds and deploys app on gh-pages
 
-### `npm run eject`
+## Folders structure
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+└───src
+    │   App.css
+    │   App.js                                   # App component
+    │   index.css
+    │   index.js
+    │   localStorage.js                          # Local storage
+    │   notification.js                          # Notification toast from antd
+    │
+    ├───Auth                                     # SingIn/SignUp pages
+    │       authFormConfig.js
+    │       login_logout.css
+    │       LogOutButton.js
+    │       SignIn.jsx
+    │       SignUp.jsx
+    │
+    ├───Calendar                                # Calendar component
+    │       Calendar.css
+    │       Calendar.js
+    │       CalendarItem.js                     # Calendar item (one day)
+    │       TasksBadge.css
+    │       TasksBadge.jsx                      # Badges that display number of active/completed tasks
+    │
+    ├───firebase                                # Firebase config
+    │       firebase.js
+    │
+    ├───redux                                   # Redux
+    │       actions.js
+    │       appReducer.js
+    │       dateReducer.js
+    │       reduxTypes.js
+    │       rootReducer.js
+    │       store.js
+    │       todosReducer.js
+    │       userReducer.js
+    │
+    ├───Router                                 # App routing
+    │       AppRouter.js
+    │       AuthRouter.js
+    │       RoutePaths.js
+    │       Router.js
+    │
+    └───ToDo                                   # ToDo component
+            NewToDo.css
+            NewToDoForm.jsx
+            ToDo.css
+            ToDo.js
+            ToDoList.jsx
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Firebase Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+└──todos                  # collection 'todos'
+    ├──date               # date when task should be displayed (string)
+    ├──description        # to-do description (string)
+    ├──id                 # id of the to-do (string)
+    ├──uid                # uid of user who created the current to-do (string)
+    ├──title              # to-do title (string)
+    ├──status             # to-do status (string)
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Application stack
 
-## Learn More
+### React
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Redux
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Firebase
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Level-1-Clever-to-do-list
+### Ant Design
