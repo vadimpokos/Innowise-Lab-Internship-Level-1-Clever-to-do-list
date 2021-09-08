@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { createUserWithEmail } from '../redux/actions'
+import { createUserWithEmail } from '../redux/userReducer/actions'
 import { Link } from 'react-router-dom'
 import './login_logout.css'
 import { AUTH_FORM_CONFIG } from './authFormConfig'
@@ -12,6 +12,22 @@ export const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+
+  const handleEmailInput = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handlePasswordInput = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value)
+  }
+
+  const handleSubmitButton = () => {
+    dispatch(createUserWithEmail(email, password, confirmPassword))
+  }
 
   return (
     <div className='wrapper'>
@@ -27,7 +43,7 @@ export const SignUp = () => {
           name={AUTH_FORM_CONFIG.name.username}
           rules={AUTH_FORM_CONFIG.rules.Username}
         >
-          <Input onChange={(e) => setEmail(e.target.value)} />
+          <Input onChange={handleEmailInput} />
         </Form.Item>
 
         <Form.Item
@@ -35,7 +51,7 @@ export const SignUp = () => {
           name={AUTH_FORM_CONFIG.name.password}
           rules={AUTH_FORM_CONFIG.rules.Password}
         >
-          <Input.Password onChange={(e) => setPassword(e.target.value)} />
+          <Input.Password onChange={handlePasswordInput} />
         </Form.Item>
 
         <Form.Item
@@ -43,9 +59,7 @@ export const SignUp = () => {
           name={AUTH_FORM_CONFIG.name.confirm_password}
           rules={AUTH_FORM_CONFIG.rules.Confirm}
         >
-          <Input.Password
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <Input.Password onChange={handleConfirmPassword} />
         </Form.Item>
 
         <Form.Item
@@ -60,9 +74,7 @@ export const SignUp = () => {
           <Button
             type={AUTH_FORM_CONFIG.type.primary}
             htmlType={AUTH_FORM_CONFIG.htmlType.submit}
-            onClick={() => {
-              dispatch(createUserWithEmail(email, password, confirmPassword))
-            }}
+            onClick={handleSubmitButton}
           >
             Sign Up
           </Button>

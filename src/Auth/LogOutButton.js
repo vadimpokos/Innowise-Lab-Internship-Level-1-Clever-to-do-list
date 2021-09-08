@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Button } from 'antd'
-import { logout, clearTodoList } from '../redux/actions'
+import { logout } from '../redux/userReducer/actions'
+import { clearTodoList } from '../redux/todosReducer/actions'
 
 export const LogOutButton = () => {
   const dispatch = useDispatch()

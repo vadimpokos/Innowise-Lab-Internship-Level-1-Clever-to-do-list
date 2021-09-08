@@ -1,33 +1,19 @@
 import React from 'react'
 import { Card, Tag } from 'antd'
 import { useDispatch } from 'react-redux'
-import { changeDate } from '../redux/actions'
-import { TasksBadge } from './TasksBadge'
-
-const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const MONTH_NAMES = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-]
+import { changeDate } from '../redux/dateReducer/actions'
+import { TasksBadge } from './TaskBadge/TasksBadge'
+import { WEEK_DAYS, MONTH_NAMES } from './Constants'
 
 export const CalendarItem = (day) => {
   const dispatch = useDispatch()
 
+  const handleItemClick = () => {
+    dispatch(changeDate(day.day))
+  }
+
   return (
-    <Card
-      className='calendar-item'
-      onClick={() => dispatch(changeDate(day.day))}
-    >
+    <Card className='calendar-item' onClick={handleItemClick}>
       <Card.Meta
         title={day.day.getDate()}
         description={MONTH_NAMES.find(

@@ -1,4 +1,4 @@
-import { CONFIRM_ERROR, LOGIN, LOGOUT, SIGN_UP } from './reduxTypes'
+import { CONFIRM_ERROR, LOGIN, LOGOUT, SIGN_UP } from '../reduxTypes'
 
 const initialState = {
   userInfo: {},

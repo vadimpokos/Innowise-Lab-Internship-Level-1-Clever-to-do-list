@@ -1,22 +1,18 @@
-import { db } from '../firebase/firebase'
+import { db } from '../../firebase/firebase'
 import {
   ADD_TODO,
-  CHANGE_DATE,
   CLEAR_TODOS,
-  CONFIRM_ERROR,
   DELETE_TODO,
-  FOCUS,
   GET_TODOS,
-  LOGIN,
-  LOGOUT,
-  SIGN_UP,
+  SET_ISLOADING,
   UPDATE_TODO,
-} from './reduxTypes'
-import firebase from 'firebase'
-import { openNotification } from '../notification'
+} from '../reduxTypes'
+import { openNotification } from '../../notification'
+import { hideLoading, showLoading } from '../appReducer/actions'
 
 export function getTodos(uid) {
   return async (dispatch) => {
+    dispatch(showLoading())
     const response = db.collection('todos').where('uid', '==', uid)
     let todos = []
     try {
@@ -29,6 +25,7 @@ export function getTodos(uid) {
         })
         .then(() => {
           dispatch({ type: GET_TODOS, payload: todos })
+          dispatch(hideLoading())
         })
         .catch((e) => {
           throw e
@@ -41,6 +38,7 @@ export function getTodos(uid) {
 
 export function addToDo(title, description, uid, day) {
   return async (dispatch) => {
+    dispatch({ type: SET_ISLOADING, payload: true })
     const response = db.collection('todos')
     const todo = {
       title: title,
@@ -56,6 +54,7 @@ export function addToDo(title, description, uid, day) {
         .then(() => {
           dispatch({ type: ADD_TODO, payload: todo })
         })
+        .then(() => dispatch({ type: SET_ISLOADING, payload: false }))
         .catch((error) => {
           throw error
         })
@@ -120,82 +119,9 @@ export function deleteToDo(docId, id) {
   }
 }
 
-export function loginEmail(email, password) {
-  return async (dispatch) => {
-    await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
-        dispatch({ type: LOGIN, payload: user })
-      })
-      .catch((error) => {
-        openNotification('error', 'Login error', error.message)
-      })
-  }
-}
-
-export function logout() {
-  return async (dispatch) => {
-    try {
-      await firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          dispatch({ type: LOGOUT, payload: {} })
-        })
-        .catch((error) => {
-          throw error
-        })
-    } catch (e) {
-      openNotification('error', 'LogOut error', e.message)
-    }
-  }
-}
-
 export function clearTodoList() {
   return {
     type: CLEAR_TODOS,
     payload: [],
-  }
-}
-
-export function createUserWithEmail(email, password, confirm) {
-  if (password === confirm) {
-    return async (dispatch) => {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          const user = userCredential.user
-          dispatch({ type: SIGN_UP, payload: user })
-        })
-        .catch((error) => {
-          openNotification('error', 'Sign Up error!', error.message)
-        })
-    }
-  } else {
-    openNotification(
-      'error',
-      'Passwords didn`t match!',
-      'Please, check that passwords in password and confirm fields are similar'
-    )
-    return {
-      type: CONFIRM_ERROR,
-    }
-  }
-}
-
-export function changeFocus(id) {
-  return {
-    type: FOCUS,
-    payload: id,
-  }
-}
-
-export function changeDate(newDate) {
-  return {
-    type: CHANGE_DATE,
-    payload: newDate,
   }
 }

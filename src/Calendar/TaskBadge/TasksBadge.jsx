@@ -2,23 +2,18 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Badge } from 'antd'
 import './TasksBadge.css'
+import { dateCompare } from '../../utils/DateCompare'
 
 export const TasksBadge = (day) => {
   const todos = useSelector((state) => state.todos.todos)
 
   const completedTasks = todos.filter((item) => {
-    return (
-      new Date(item.date.seconds * 1000).getDate() === day.day.getDate() &&
-      new Date(item.date.seconds * 1000).getMonth() === day.day.getMonth() &&
-      item.status === 'done'
-    )
+    return dateCompare(item.date.seconds, day.day) && item.status === 'done'
   })
 
   const pendingTasks = todos.filter((item) => {
     return (
-      new Date(item.date.seconds * 1000).getDate() === day.day.getDate() &&
-      new Date(item.date.seconds * 1000).getMonth() === day.day.getMonth() &&
-      item.status === 'inprogress'
+      dateCompare(item.date.seconds, day.day) && item.status === 'inprogress'
     )
   })
 

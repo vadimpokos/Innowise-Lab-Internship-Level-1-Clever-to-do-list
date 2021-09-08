@@ -1,3 +1,5 @@
+import { openNotification } from './notification'
+
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state')
@@ -15,6 +17,6 @@ export const saveState = (state) => {
     const serializedState = JSON.stringify(state)
     localStorage.setItem('state', serializedState)
   } catch (err) {
-    console.log(err)
+    openNotification('error', err.name, err.message)
   }
 }

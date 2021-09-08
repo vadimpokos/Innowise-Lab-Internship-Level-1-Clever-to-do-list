@@ -1,4 +1,4 @@
-import { CHANGE_DATE } from './reduxTypes'
+import { CHANGE_DATE } from '../reduxTypes'
 
 const initialState = {
   today: new Date(),

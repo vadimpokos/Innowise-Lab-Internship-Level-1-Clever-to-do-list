@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Calendar.css'
-import { CalendarItem } from './CalendarItem'
+import { CalendarItem } from '../CalendarItem'
 
 export const Calendar = () => {
   const [today] = useState(new Date())
