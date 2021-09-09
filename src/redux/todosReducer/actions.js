@@ -4,7 +4,6 @@ import {
   CLEAR_TODOS,
   DELETE_TODO,
   GET_TODOS,
-  SET_ISLOADING,
   UPDATE_TODO,
 } from '../reduxTypes'
 import { openNotification } from '../../notification'
@@ -38,7 +37,6 @@ export function getTodos(uid) {
 
 export function addToDo(title, description, uid, day) {
   return async (dispatch) => {
-    dispatch({ type: SET_ISLOADING, payload: true })
     const response = db.collection('todos')
     const todo = {
       title: title,
@@ -54,7 +52,6 @@ export function addToDo(title, description, uid, day) {
         .then(() => {
           dispatch({ type: ADD_TODO, payload: todo })
         })
-        .then(() => dispatch({ type: SET_ISLOADING, payload: false }))
         .catch((error) => {
           throw error
         })
