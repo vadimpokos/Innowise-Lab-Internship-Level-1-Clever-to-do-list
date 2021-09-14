@@ -1,6 +1,11 @@
 import firebase from 'firebase'
-import { openNotification } from '../../notification'
-import { CONFIRM_ERROR, LOGIN, LOGOUT, SIGN_UP } from '../reduxTypes'
+import { openNotification } from '../../utils/notification'
+import {
+  CONFIRM_ERROR,
+  LOGIN,
+  LOGOUT,
+  SIGN_UP,
+} from '../../constants/reduxTypes'
 
 export function loginEmail(email, password) {
   return async (dispatch) => {

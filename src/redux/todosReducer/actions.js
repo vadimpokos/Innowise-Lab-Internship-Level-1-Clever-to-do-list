@@ -5,8 +5,8 @@ import {
   DELETE_TODO,
   GET_TODOS,
   UPDATE_TODO,
-} from '../reduxTypes'
-import { openNotification } from '../../notification'
+} from '../../constants/reduxTypes'
+import { openNotification } from '../../utils/notification'
 import { hideLoading, showLoading } from '../appReducer/actions'
 
 export function getTodos(uid) {

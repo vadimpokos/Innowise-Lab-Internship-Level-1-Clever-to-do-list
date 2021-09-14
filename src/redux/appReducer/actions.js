@@ -1,4 +1,4 @@
-import { FOCUS, SET_ISLOADING } from '../reduxTypes'
+import { FOCUS, SET_ISLOADING } from '../../constants/reduxTypes'
 
 export function changeFocus(id) {
   return {

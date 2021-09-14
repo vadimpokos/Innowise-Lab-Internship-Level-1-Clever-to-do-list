@@ -1,4 +1,4 @@
-import { CHANGE_DATE } from '../reduxTypes'
+import { CHANGE_DATE } from '../../constants/reduxTypes'
 
 export function changeDate(newDate) {
   return {
