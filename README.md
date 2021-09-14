@@ -34,52 +34,100 @@ Builds and deploys app on gh-pages
 
 ```
 └───src
-    │   App.css
-    │   App.js                                   # App component
-    │   index.css
-    │   index.js
-    │   localStorage.js                          # Local storage
-    │   notification.js                          # Notification toast from antd
+    │   App.js                                               # App component
+    │   index.js                                             # Main index.js file
     │
-    ├───Auth                                     # SingIn/SignUp pages
-    │       authFormConfig.js
-    │       login_logout.css
-    │       LogOutButton.js
-    │       SignIn.jsx
-    │       SignUp.jsx
+    ├───components
+    │   ├───Auth
+    │   │   ├───shared                                       # Styles for SignIn/SignUp
+    │   │   │       styles.css
+    │   │   │
+    │   │   ├───SignIn                                       # SignIn page
+    │   │   │       index.jsx
+    │   │   │
+    │   │   └───SignUp                                       # SignIn page
+    │   │           index.jsx
+    │   │
+    │   ├───Calendar
+    │   │   ├───CalendarComponent                            # Calendar component
+    │   │   │       index.jsx
+    │   │   │       styles.css
+    │   │   │
+    │   │   ├───CalendarItem                                 # Calendar item component
+    │   │   │       index.jsx
+    │   │   │
+    │   │   └───TaskBadge                                    # Task badge that displays number of active/completed tasks
+    │   │           index.jsx
+    │   │           styles.css
+    │   │
+    │   ├───Loader                                           # Loader component
+    │   │       index.jsx
+    │   │       styles.css
+    │   │
+    │   ├───LogOutButton                                    # Log out button component
+    │   │       index.jsx
+    │   │
+    │   ├───Main                                            # Main page, contains calendar, to-do-list and new task form
+    │   │       index.jsx
+    │   │
+    │   ├───Router                                          # Router
+    │   │       AppRouter.jsx
+    │   │       AuthRouter.jsx
+    │   │       Router.jsx
+    │   │
+    │   └───ToDo
+    │       ├───NewToDo                                     # Form for creating new to-do
+    │       │       index.jsx
+    │       │       styles.css
+    │       │
+    │       ├───Status                                      # to-do status
+    │       │       index.jsx
+    │       │
+    │       ├───ToDoItem                                    # to-do item
+    │       │       index.jsx
+    │       │       styles.css
+    │       │
+    │       └───ToDoList                                    # to-do list
+    │               index.jsx
     │
-    ├───Calendar                                # Calendar component
-    │       Calendar.css
-    │       Calendar.js
-    │       CalendarItem.js                     # Calendar item (one day)
-    │       TasksBadge.css
-    │       TasksBadge.jsx                      # Badges that display number of active/completed tasks
+    ├───configs
+    │       authFormConfig.js                               # config for SignUp/SignIn forms
     │
-    ├───firebase                                # Firebase config
+    ├───constants                                           # App constants
+    │       calendar.js                                     # Constants for calendar
+    │       reduxTypes.js                                   # Redux types
+    │       RoutePaths.js                                   # Route Paths
+    │
+    ├───firebase                                            # Firebase config
     │       firebase.js
     │
-    ├───redux                                   # Redux
-    │       actions.js
-    │       appReducer.js
-    │       dateReducer.js
-    │       reduxTypes.js
-    │       rootReducer.js
-    │       store.js
-    │       todosReducer.js
-    │       userReducer.js
+    ├───redux                                               # Redux
+    │   │   appStore.js
+    │   │   rootReducer.js
+    │   │
+    │   ├───appReducer
+    │   │       actions.js
+    │   │       reducer.js
+    │   │
+    │   ├───dateReducer
+    │   │       actions.js
+    │   │       reducer.js
+    │   │
+    │   ├───todosReducer
+    │   │       actions.js
+    │   │       reducer.js
+    │   │
+    │   └───userReducer
+    │           actions.js
+    │           reducer.js
     │
-    ├───Router                                 # App routing
-    │       AppRouter.js
-    │       AuthRouter.js
-    │       RoutePaths.js
-    │       Router.js
+    ├───services
+    │   └───localStorage                                    # localStorage
+    │           index.js
     │
-    └───ToDo                                   # ToDo component
-            NewToDo.css
-            NewToDoForm.jsx
-            ToDo.css
-            ToDo.js
-            ToDoList.jsx
+    └───utils
+            DateCompare.js                                  # Function for comparing to-dos dates
+            notification.js                                 # Toast from Ant Design
 ```
 
 ## Firebase Structure
