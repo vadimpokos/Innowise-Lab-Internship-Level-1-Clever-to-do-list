@@ -1,9 +1,14 @@
 import { notification } from 'antd'
 
-export const openNotification = (type, message, description) => {
+export const openNotification = ({
+  type,
+  message,
+  description,
+  placement = 'bottomLeft',
+}) => {
   notification[type]({
-    message: message,
-    description: description,
-    placement: 'bottomLeft',
+    message,
+    description,
+    placement,
   })
 }

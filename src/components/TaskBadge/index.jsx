@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Badge } from 'antd'
 import './styles.css'
-import { dateCompare } from '../../../utils/DateCompare'
+import { dateCompare } from '../../utils/dateCompare'
 
 const TasksBadgeComponent = (day) => {
   const todos = useSelector((state) => state.todos.todos)

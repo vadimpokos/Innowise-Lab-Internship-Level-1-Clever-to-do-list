@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router'
 import { useRouteMatch } from 'react-router'
-import { LogOutButton } from '../LogOutButton/index'
-import { Main } from '../Main'
+import { LogOutButton } from '../components/LogOutButton/index'
+import { Main } from '../components/Main'
 
 const AppRouterComponent = () => {
   const { path } = useRouteMatch()

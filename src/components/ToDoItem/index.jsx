@@ -2,10 +2,10 @@ import './styles.css'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, Input, Button } from 'antd'
-import { updateToDo, deleteToDo } from '../../../redux/todosReducer/actions'
-import { changeFocus } from '../../../redux/appReducer/actions'
-import { openNotification } from '../../../utils/notification'
-import { Status } from '../Status'
+import { updateToDo, deleteToDo } from '../../redux/todosReducer/actions'
+import { changeFocus } from '../../redux/appReducer/actions'
+import { openNotification } from '../../utils/notification'
+import { Status } from '../ToDoStatus'
 
 export const Todo = (todo) => {
   const [updateTitle, setUpdateTitle] = useState('')
@@ -23,7 +23,10 @@ export const Todo = (todo) => {
 
   const handleUpdateButton = () => {
     if (!updateTitle && !updateDesc) {
-      openNotification('warning', 'Both fields is empty')
+      openNotification({
+        type: 'warning',
+        message: 'Both fields are empty',
+      })
     } else {
       dispatch(
         updateToDo(

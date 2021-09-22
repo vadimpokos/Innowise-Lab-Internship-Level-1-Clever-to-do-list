@@ -2,7 +2,7 @@ import React from 'react'
 import { CheckOutlined } from '@ant-design/icons'
 import { Badge, Button } from 'antd'
 import { useDispatch } from 'react-redux'
-import { updateToDo } from '../../../redux/todosReducer/actions'
+import { updateToDo } from '../../redux/todosReducer/actions'
 
 export const StatusComponent = (todo) => {
   const dispatch = useDispatch()

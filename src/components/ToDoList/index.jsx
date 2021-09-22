@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Todo } from '../ToDoItem'
-import { dateCompare } from '../../../utils/DateCompare'
+import { dateCompare } from '../../utils/dateCompare'
 
 const ToDoListComponent = () => {
   const todos = useSelector((state) => state.todos.todos)

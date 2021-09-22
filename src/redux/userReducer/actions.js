@@ -16,8 +16,12 @@ export function loginEmail(email, password) {
         const user = userCredential.user
         dispatch({ type: LOGIN, payload: user })
       })
-      .catch((error) => {
-        openNotification('error', 'Login error', error.message)
+      .catch((e) => {
+        openNotification({
+          type: 'error',
+          message: 'Error login!',
+          description: e.message,
+        })
       })
   }
 }
@@ -35,7 +39,11 @@ export function logout() {
           throw error
         })
     } catch (e) {
-      openNotification('error', 'LogOut error', e.message)
+      openNotification({
+        type: 'error',
+        message: 'Error logout!',
+        description: e.message,
+      })
     }
   }
 }
@@ -50,16 +58,21 @@ export function createUserWithEmail(email, password, confirm) {
           const user = userCredential.user
           dispatch({ type: SIGN_UP, payload: user })
         })
-        .catch((error) => {
-          openNotification('error', 'Sign Up error!', error.message)
+        .catch((e) => {
+          openNotification({
+            type: 'error',
+            message: 'Sign Up Error!',
+            description: e.message,
+          })
         })
     }
   } else {
-    openNotification(
-      'error',
-      'Passwords didn`t match!',
-      'Please, check that passwords in password and confirm fields are similar'
-    )
+    openNotification({
+      type: 'error',
+      message: 'Passwords didn`t match!',
+      description:
+        'Please, check that passwords in password and confirm fields are similar',
+    })
     return {
       type: CONFIRM_ERROR,
     }

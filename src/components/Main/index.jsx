@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTodos } from '../../redux/todosReducer/actions'
-import { Calendar } from '../Calendar/CalendarComponent'
+import { Calendar } from '../Calendar'
 import { Loader } from '../Loader'
-import { NewToDoForm } from '../ToDo/NewToDo'
-import { ToDoList } from '../ToDo/ToDoList'
+import { NewToDoForm } from '../NewToDo'
+import { ToDoList } from '../ToDoList'
 
 const MainComponent = () => {
   const dispatch = useDispatch()

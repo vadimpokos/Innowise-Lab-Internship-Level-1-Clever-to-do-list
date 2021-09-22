@@ -56,7 +56,11 @@ export function addToDo(title, description, uid, day) {
           throw error
         })
     } catch (e) {
-      openNotification('error', 'Error adding document', e.message)
+      openNotification({
+        type: 'error',
+        message: 'Error adding document',
+        description: e.message,
+      })
     }
   }
 }
@@ -88,7 +92,11 @@ export function updateToDo(todo, title, description, status) {
           throw error
         })
     } catch (e) {
-      openNotification('error', 'Error updating document', e.message)
+      openNotification({
+        type: 'error',
+        message: 'Error updating document',
+        description: e.message,
+      })
     }
   }
 }
@@ -101,7 +109,7 @@ export function deleteToDo(docId, id) {
         .doc(docId)
         .delete()
         .then(() => {
-          openNotification('success', 'Task deleted!')
+          openNotification({ type: 'success', message: 'Task deleted' })
         })
         .then(() => {
           dispatch({ type: DELETE_TODO, payload: id })
@@ -111,7 +119,11 @@ export function deleteToDo(docId, id) {
         })
     } catch (e) {
       console.log(e)
-      openNotification('error', 'Error removing task!', e.message)
+      openNotification({
+        type: 'error',
+        message: 'Error deleting task',
+        description: e.message,
+      })
     }
   }
 }

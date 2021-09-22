@@ -1,9 +1,9 @@
 import './styles.css'
 import React, { useState } from 'react'
 import { Input, Button, Form } from 'antd'
-import { addToDo, getTodos } from '../../../redux/todosReducer/actions'
+import { addToDo, getTodos } from '../../redux/todosReducer/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { openNotification } from '../../../utils/notification'
+import { openNotification } from '../../utils/notification'
 
 const NewToDoFormComponent = () => {
   const [newTitle, setNewTitle] = useState('')
@@ -21,7 +21,10 @@ const NewToDoFormComponent = () => {
 
   const handleAddButton = () => {
     if (!newTitle || !newDesc) {
-      openNotification('warning', 'Missing required field')
+      openNotification({
+        type: 'warning',
+        message: 'Missing required field',
+      })
     } else {
       dispatch(addToDo(newTitle, newDesc, uid, date.selectedDate))
       dispatch(getTodos(uid))

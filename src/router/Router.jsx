@@ -1,7 +1,7 @@
 import React from 'react'
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { PATH_ROUTES } from '../../constants/RoutePaths'
+import { PATH_ROUTES } from '../constants/routePaths'
 import { AppRouter } from './AppRouter'
 import { AuthRouter } from './AuthRouter'
 
