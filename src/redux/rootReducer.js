@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux'
-import { todosReducer } from './todosReducer'
+import { appReducer } from './appReducer/reducer'
+import { dateReducer } from './dateReducer/reducer'
+import { todosReducer } from './todosReducer/reducer'
+import { userReducer } from './userReducer/reducer'
 
 export const rootReducer = combineReducers({
   todos: todosReducer,
-  userInfo: null,
+  userInfo: userReducer,
+  app: appReducer,
+  date: dateReducer,
 })

@@ -1,0 +1,16 @@
+.calendar_wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  overflow-y: auto;
+  overflow-x: scroll;
+}
+
+.calendar-item {
+  margin: 2em;
+  width: auto;
+  height: auto;
+}

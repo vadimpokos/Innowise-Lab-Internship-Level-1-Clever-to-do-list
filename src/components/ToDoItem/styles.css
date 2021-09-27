@@ -1,0 +1,14 @@
+.button_done {
+  color: green;
+}
+
+.button_done:hover {
+  color: #ccc;
+}
+
+.todo_status {
+  width: 13em;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

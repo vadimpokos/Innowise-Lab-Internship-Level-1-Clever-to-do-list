@@ -1,29 +1,9 @@
-import './App.css';
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import { SignIn } from './SignIn';
-import { ToDoList } from './ToDoList';
 import 'antd/dist/antd.css'
-
+import React from 'react'
+import { ToDoRouter } from './router/Router'
 
 function App() {
-  return (
-    <Router>
-      <Link to='/signin'>Sign In</Link>
-      <Link to='/'>Home</Link>
-      <Switch>
-        <Route exact path='/'>
-          <ToDoList />
-        </Route>
-        <Route path='/signin' component={SignIn}/>
-      </Switch>
-    </Router>
-  );
+  return <ToDoRouter />
 }
 
-export default App;
+export default App
