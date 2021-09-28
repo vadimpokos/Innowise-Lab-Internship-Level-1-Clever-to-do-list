@@ -27,7 +27,6 @@
     "prepare": "husky install",
     "predeploy": "env-cmd -f .env.firebase npm run build",
     "deploy": "env-cmd -f .env.firebase gh-pages -d build"
-
   },
   "eslintConfig": {
     "extends": [
