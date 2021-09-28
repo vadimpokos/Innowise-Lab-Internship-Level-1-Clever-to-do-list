@@ -15,20 +15,13 @@ export function getTodos(uid) {
     const response = db.collection('todos').where('uid', '==', uid)
     let todos = []
     try {
-      await response
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            todos = [...todos, { ...doc.data(), firestoreId: doc.id }]
-          })
-        })
-        .then(() => {
-          dispatch({ type: GET_TODOS, payload: todos })
-          dispatch(hideLoading())
-        })
-        .catch((e) => {
-          throw e
-        })
+      const query = await response.get()
+
+      query.forEach((doc) => {
+        todos = [...todos, { ...doc.data(), firestoreId: doc.id }]
+      })
+      dispatch({ type: GET_TODOS, payload: todos })
+      dispatch(hideLoading())
     } catch (e) {
       openNotification('error', 'Error loading data', e.message)
     }
@@ -47,14 +40,8 @@ export function addToDo(title, description, uid, day) {
       date: day,
     }
     try {
-      await response
-        .add(todo)
-        .then(() => {
-          dispatch({ type: ADD_TODO, payload: todo })
-        })
-        .catch((error) => {
-          throw error
-        })
+      await response.add(todo)
+      dispatch({ type: ADD_TODO, payload: todo })
     } catch (e) {
       openNotification({
         type: 'error',
@@ -78,19 +65,12 @@ export function updateToDo(todo, title, description, status) {
       date: todo.date,
     }
     try {
-      await response
-        .doc(todo.firestoreId)
-        .update({
-          title: title,
-          description: description,
-          status: status,
-        })
-        .then(() => {
-          dispatch({ type: UPDATE_TODO, payload: newToDo })
-        })
-        .catch((error) => {
-          throw error
-        })
+      await response.doc(todo.firestoreId).update({
+        title: title,
+        description: description,
+        status: status,
+      })
+      dispatch({ type: UPDATE_TODO, payload: newToDo })
     } catch (e) {
       openNotification({
         type: 'error',
@@ -105,18 +85,9 @@ export function deleteToDo(docId, id) {
   return async (dispatch) => {
     const response = db.collection('todos')
     try {
-      await response
-        .doc(docId)
-        .delete()
-        .then(() => {
-          openNotification({ type: 'success', message: 'Task deleted' })
-        })
-        .then(() => {
-          dispatch({ type: DELETE_TODO, payload: id })
-        })
-        .catch((error) => {
-          throw error
-        })
+      await response.doc(docId).delete()
+      openNotification({ type: 'success', message: 'Task deleted' })
+      dispatch({ type: DELETE_TODO, payload: id })
     } catch (e) {
       console.log(e)
       openNotification({
